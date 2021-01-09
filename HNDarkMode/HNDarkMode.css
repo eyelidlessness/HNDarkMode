@@ -1,0 +1,150 @@
+/**
+ * ---------------------------------------------------------------------------
+ * Original HackerNews color styles, but with CSS variables/custom properties.
+ * These are simple and should be trivial to re-interpolate to support older
+ * browsers, but I'm using them to make development easier.
+ * ---------------------------------------------------------------------------
+ */
+
+:root {
+  --max-contrast: #000;
+
+  --text-header:          #222;
+  --text-header-selected: #fff;
+
+  --text-contrast-plus-2:  #5a5a5a;
+  --text-contrast-plus-1:  #737373;
+  --text-contrast-default: #828282;
+  --text-contrast-minus-1: #888888;
+  --text-contrast-minus-2: #9c9c9c;
+  --text-contrast-minus-3: #aeaeae;
+  --text-contrast-minus-4: #bebebe;
+  --text-contrast-minus-5: #cecece;
+  --text-contrast-minus-6: #dddddd;
+}
+
+:root body  { color:var(--text-contrast-default); }
+:root td    { color:var(--text-contrast-default); }
+
+:root .admin td   { color:var(--max-contrast); }
+:root .subtext td { color:var(--text-contrast-default); }
+
+:root a:link    { color:var(--max-contrast); }
+:root a:visited { color:var(--text-contrast-default); }
+
+:root .default { color:var(--text-contrast-default); }
+:root .admin   { color:var(--max-contrast); }
+:root .title   { color:var(--text-contrast-default); }
+:root .subtext { color:var(--text-contrast-default); }
+:root .yclinks { color:var(--text-contrast-default); }
+:root .pagetop { color:var(--text-header); }
+:root .comhead { color:var(--text-contrast-default); }
+
+:root .c00, :root .c00 a:link { color:var(--max-contrast); }
+:root .c5a, :root .c5a a:link, :root .c5a a:visited { color:var(--text-contrast-plus-2); }
+:root .c73, :root .c73 a:link, :root .c73 a:visited { color:var(--text-contrast-plus-1); }
+:root .c82, :root .c82 a:link, :root .c82 a:visited { color:var(--text-contrast-default); }
+:root .c88, :root .c88 a:link, :root .c88 a:visited { color:var(--text-contrast-minus-1); }
+:root .c9c, :root .c9c a:link, :root .c9c a:visited { color:var(--text-contrast-minus-2); }
+:root .cae, :root .cae a:link, :root .cae a:visited { color:var(--text-contrast-minus-3); }
+:root .cbe, :root .cbe a:link, :root .cbe a:visited { color:var(--text-contrast-minus-4); }
+:root .cce, :root .cce a:link, :root .cce a:visited { color:var(--text-contrast-minus-5); }
+:root .cdd, :root .cdd a:link, :root .cdd a:visited { color:var(--text-contrast-minus-6); }
+
+:root .pagetop a:visited { color:var(--max-contrast);}
+:root .topsel a:link, :root .topsel a:visited { color:var(--text-header-selected); }
+
+:root .subtext a:link, :root .subtext a:visited { color:var(--text-contrast-default); }
+
+:root .comhead a:link, :root .subtext a:visited { color:var(--text-contrast-default); }
+:root .comhead a:hover { text-decoration:underline; }
+
+:root .hnmore a:link, :root a:visited { color:var(--text-contrast-default); }
+
+:root .votearrow { background-image: url("https://news.ycombinator.com/grayarrow.gif"); }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+  :root .votearrow { background-image: url("https://news.ycombinator.com/grayarrow2x.gif"); }
+}
+
+/**
+ * ---------------------------------------------------------------------------
+ * Dark mode variables/custom properties and targeted overrides of inline
+ * styles that I'm able to identify.
+ * ---------------------------------------------------------------------------
+ */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --max-contrast: #fff;
+
+    --hn-brand:   #cc5200;
+    --bg-page:    #0a0a0a;
+    --bg-content: #30302c;
+
+    --text-header:          #ebebeb;
+    --text-header-selected: #0d0d0c;
+
+    --text-contrast-plus-2:   #e8e8e8;
+    --text-contrast-plus-1:   #cfcfcf;
+    --text-contrast-default:  #bfbfbf;
+    --text-contrast-minus-1:  #bababa;
+    --text-contrast-minus-2:  #a6a6a6;
+    --text-contrast-minus-3:  #949494;
+    --text-contrast-minus-4:  #828282;
+    --text-contrast-minus-5:  #737373;
+    --text-contrast-minus-6:  #636363;
+
+    --text-new-user: #40c440;
+
+    /**
+     * - - - Form elements - - -
+     */
+
+    --bg-input-control:     #222;
+    --border-input-control: #1a1a1a;
+    --text-input-control:     var(--max-contrast);
+  }
+
+  :root, :root body {
+    background-color: var(--bg-page);
+  }
+
+  /*
+   * The default header. Note: there is no way to detect whether an alternative
+   * color was selected by the user or by HN for a special occasion, so we only
+   * override the default to a slightly darker/more muted color.
+   */
+  :root #hnmain > tbody:first-child > tr:first-child > td[bgcolor='#ff6600']:first-child,
+  :root #hnmain > tbody:first-child > tr:first-child > td:not([bgcolor]):first-child {
+    background-color: var(--hn-brand);
+  }
+
+  /* Inline font HN Brand color */
+  :root font[color='#ff6600'] {
+    color: var(--hn-brand);
+  }
+
+  /* The default content body */
+  :root #hnmain[bgcolor='#f6f6ef'] {
+    background-color: var(--bg-content);
+  }
+
+  :root font[color='#3c963c'] {
+    color: var(--text-new-user);
+  }
+
+  :root .votearrow {
+    filter: invert() brightness(1.5);
+  }
+
+  :root button, :root input, :root select, :root textarea {
+    background-color: var(--bg-input-control);
+    border-color:     var(--border-input-control);
+    /* Note: this is because overriding form control styles converts some of
+     * their borders to thick/beveled styles as seen in the 90s.
+     */
+    border-width:     1px;
+    color:            var(--text-input-control);
+  }
+}
